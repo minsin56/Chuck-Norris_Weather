@@ -50,11 +50,32 @@ class WeatherService
     String Res = await GetWeather();
 
     List<WeatherData> Data = [];
-    Data.add(WeatherData.FromJson(0, jsonDecode(Res)));
-    Data.add(WeatherData.FromJson(1, jsonDecode(Res)));
-    Data.add(WeatherData.FromJson(2, jsonDecode(Res)));
-    Data.add(WeatherData.FromJson(3, jsonDecode(Res)));
-    Data.add(WeatherData.FromJson(4, jsonDecode(Res)));
+  
+    double Count = jsonDecode(Res)["cnt"].toDouble();
+
+    double PrevDay = -1;
+
+    for(int i = 0; i < (Count).toInt(); i ++)
+    {
+      var Json = jsonDecode(Res);
+
+      var Item = Json["list"][i];
+
+      var Date = Item["dt_txt"];
+
+      var Split = Date.toString().replaceAll(RegExp(r'-'), ' ').replaceAll(RegExp(r':'), ' ').split(' ');
+      var Day = double.parse(Split[2]);
+
+
+      if(Day > PrevDay)
+      {
+        Data.add(WeatherData.FromJson(i,jsonDecode(Res)));
+
+        PrevDay = Day;
+      }
+
+    } 
+
 
 
     return Data;
