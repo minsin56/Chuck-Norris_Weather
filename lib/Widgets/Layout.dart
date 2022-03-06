@@ -16,15 +16,17 @@ class Layout extends StatelessWidget
 
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
+  Widget build(BuildContext context)
+  {
 
     var Temp = Data?.Tempurature;
     var TimeText = Data?.DateText;
+    var RainChance = Data?.RainChance;
 
     var Wind = Data?.Wind;
     var WindDirection = Data?.WindDirection;
     var Humidity = Data?.Humidity;
+    var WeatherMainType = Data?.WeatherMainType;
     var DateText = Data?.DateText;
 
     return      Container(
@@ -46,9 +48,9 @@ class Layout extends StatelessWidget
                           SizedBox(height: 80),
 
                           Text(
-                              "THE CHUCK NORRIS FACT OF THE DAY, OH AND THE WEATHER",
+                              "THE CHUCK NORRIS FACTS OF THE DAY",
                               style: GoogleFonts.lato(
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white
                               )
@@ -58,11 +60,6 @@ class Layout extends StatelessWidget
                           SizedBox(height: 20,),
       
                           SizedBox(height: 5,),
-                          Text("$DateText", style: GoogleFonts.lato(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white
-                          ),)
                         ],
                       ),
                     ],
@@ -150,7 +147,7 @@ class Layout extends StatelessWidget
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white
                                     ),),
-                                    Text("10", style: GoogleFonts.lato(
+                                    Text("$RainChance", style: GoogleFonts.lato(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white
@@ -241,7 +238,40 @@ class Layout extends StatelessWidget
                                       ],
                                     )
                                   ],
-                                )
+                                ),
+                                 Column(
+                                  children: [
+                                    Text("Weather", style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),),
+                                    Text("$WeatherMainType", style: GoogleFonts.lato(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),),
+                                    Text("type", style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),),
+                                    Stack(
+                                      children: [
+                                        Container(
+                                            height: 5,
+                                            width: 50,
+                                            color: Colors.white38
+                                        ),
+                                        Container(
+                                            height: 5,
+                                            width: 5,
+                                            color: Colors.redAccent
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ],
                             ),
                           )

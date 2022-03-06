@@ -22,22 +22,8 @@ class WeatherApp extends StatelessWidget
       appBar: AppBar(
           title: Text(""),
           elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: IconButton
-            (
-              icon:
-                Icon(Icons.search, size:30, color: Colors.white), onPressed: () {  },
-            ),
-          actions:
-          [
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 20, 0),
-              child: GestureDetector(
-                onTap: () => print("Hello"),
-                child:  SvgPicture.asset("assets/Menu.svg", width: 30, height: 30, color: Colors.white)
-              )
-            )
-          ],
+          backgroundColor: Color.fromARGB(0, 168, 154, 154),
+        
       ),
       body: Stack(children: [
         Image.asset('assets/BG_Day.png',
@@ -61,12 +47,10 @@ class WeatherApp extends StatelessWidget
             return PageView(controller: Controller,children: Children);
           }
 
-          return Container(
-            child: Center(child: Column( mainAxisAlignment: MainAxisAlignment.center, children:
-             [SpinKitWave(color: Colors.white, type: SpinKitWaveType.end),
-             SizedBox(height: 20,),
-             Text("Loading.................")],)),
-          );
+          return Center(child: Column( mainAxisAlignment: MainAxisAlignment.center, children:
+           [const SpinKitWave(color: Colors.white, type: SpinKitWaveType.end),
+           const SizedBox(height: 20,),
+           Text("Loading.................", style: GoogleFonts.lato(color: Colors.white,fontSize: 30))],));
         })
       ])
     );
