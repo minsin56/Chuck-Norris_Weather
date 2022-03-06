@@ -1,15 +1,21 @@
+import 'package:dafaq_is_the_weather/Models/WeatherData.dart';
 import 'package:dafaq_is_the_weather/Services/WeatherService.dart';
 import 'package:dafaq_is_the_weather/Widgets/Layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WeatherApp extends StatelessWidget
 {
+  final Controller = Get.put(WeatherService());
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
+
+    PageController Controller = PageController();
     // TODO: implement build
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -41,7 +47,27 @@ class WeatherApp extends StatelessWidget
         Container(
           decoration: BoxDecoration(color: Colors.black38),
         ),
-        PageView.builder(itemBuilder: (ctx,i) => Layout()),
+        FutureBuilder<List<WeatherData>>( future: this.Controller.GetWeatherForcest(),builder: (Ctx,Snapshop)
+        {
+          
+          if(Snapshop.hasData)
+          {
+            List<Widget> Children = [];
+
+            Snapshop.data?.forEach((Element) {
+              Children.add(Layout(Data: Element));
+            });
+
+            return PageView(controller: Controller,children: Children);
+          }
+
+          return Container(
+            child: Center(child: Column( mainAxisAlignment: MainAxisAlignment.center, children:
+             [SpinKitWave(color: Colors.white, type: SpinKitWaveType.end),
+             SizedBox(height: 20,),
+             Text("Loading.................")],)),
+          );
+        })
       ])
     );
   }

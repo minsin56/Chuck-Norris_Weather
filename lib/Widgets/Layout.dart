@@ -11,49 +11,27 @@ import "package:dafaq_is_the_weather/Services/WeatherService.dart";
 
 class Layout extends StatelessWidget
 {
-  final Controller = Get.put(WeatherService());
+  Layout({required this.Data});
+  WeatherData? Data;
+
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+    var Temp = Data?.Tempurature;
+    var TimeText = Data?.DateText;
+
+    var Wind = Data?.Wind;
+    var WindDirection = Data?.WindDirection;
+    var Humidity = Data?.Humidity;
+    var DateText = Data?.DateText;
+
     return      Container(
         padding: const EdgeInsets.all(20),
 
         child:
-        FutureBuilder<WeatherData>(future: Controller.GetWeatherData(),
-        builder: (CTX, Snapshot)
-        {
-          if(Snapshot.hasData)
-          {
-            var Data = Snapshot.data;
-            var Wind = Data?.Wind;
-            var WindDirection = Data?.WindDirection.toInt();
-            var Temp = Data?.Tempurature.toInt();
-            var Humidity = Data?.Humidity;
-
-            var Time = Data?.CurrentTime;
-            var SunriseTime = Data?.SunriseTime;
-            var SunsetTime = Data?.SunsetTime;
-
-            bool IsNight = (Time as double > (SunsetTime as double)) == true;
-
-            var IconName = IsNight? "assets/Moon.svg": "assets/Sun.svg";
-
-            var TimeText = IsNight? "Night": "Day";
-
-
-            var Date = TimeOfDay.now();
-            var Hour = Date.hour - 12;
-            var Minute = Date.minute;
-            var TimeOfDayValueText = "$Hour:$Minute";
-
-            var Year = DateTime.now().year;
-            var Month = DateTime.now().month;
-            var Day = DateTime.now().day;
-
-            var DateText = "$Day/$Month/$Year";
-
-            return  Row(children:[ Expanded(
+          Row(children:[ Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,12 +56,9 @@ class Layout extends StatelessWidget
                           SizedBox(height: 20,),
                           ChuckNorrisJoke(),
                           SizedBox(height: 20,),
-                          Container(
-                            child: GestureDetector(onTap: () => Controller.GetWeatherData(),
-                            child:SvgPicture.asset("assets/Menu.svg", width: 30, height: 30, color: Colors.white) ,),
-                          ),
+      
                           SizedBox(height: 5,),
-                          Text("$TimeOfDayValueText - Monday, Nov 9th 2022", style: GoogleFonts.lato(
+                          Text("$DateText", style: GoogleFonts.lato(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.white
@@ -109,9 +84,9 @@ class Layout extends StatelessWidget
                         children: [
                           Row(
                             children: [
-                              SvgPicture.asset(IconName, width: 34,height: 34),
+//                              SvgPicture.asset(IconName, width: 34,height: 34),
                               SizedBox(width: 10,),
-                              Text(TimeText, style: GoogleFonts.lato(
+                              Text(TimeText.toString(), style: GoogleFonts.lato(
                                   fontSize: 25,
                                   fontWeight:FontWeight.w500,
                                   color: Colors.white
@@ -275,17 +250,7 @@ class Layout extends StatelessWidget
                   )
                 ],
               ),
-            )]);
-          }
-
-          return Container(
-            child: Center(child: Column( mainAxisAlignment: MainAxisAlignment.center, children:
-             [SpinKitWave(color: Colors.white, type: SpinKitWaveType.end),
-             SizedBox(height: 20,),
-             Text("Loading.................")],)),
-          );
-        }
-        )
+            )])
     );
   }
 }
