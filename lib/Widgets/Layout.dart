@@ -140,6 +140,39 @@ class Layout extends StatelessWidget
                                     )
                                   ],
                                 ),
+                                                    Column(
+                                  children: [
+                                    Text("Wind Direction", style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),),
+                                    Text("$WindDirection", style: GoogleFonts.lato(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),),
+                                    Text("Deg", style: GoogleFonts.lato(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),),
+                                    Stack(
+                                      children: [
+                                        Container(
+                                            height: 5,
+                                            width: 50,
+                                            color: Colors.white38
+                                        ),
+                                        Container(
+                                            height: 5,
+                                            width: 5,
+                                            color: Colors.redAccent
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
                                 Column(
                                   children: [
                                     Text("Rain", style: GoogleFonts.lato(
@@ -206,39 +239,7 @@ class Layout extends StatelessWidget
                                     )
                                   ],
                                 ),
-                                 Column(
-                                  children: [
-                                    Text("Wind Direction", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("$WindDirection", style: GoogleFonts.lato(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("Deg", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Stack(
-                                      children: [
-                                        Container(
-                                            height: 5,
-                                            width: 50,
-                                            color: Colors.white38
-                                        ),
-                                        Container(
-                                            height: 5,
-                                            width: 5,
-                                            color: Colors.redAccent
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
+             
                                  Column(
                                   children: [
                                     Text("Weather", style: GoogleFonts.lato(
