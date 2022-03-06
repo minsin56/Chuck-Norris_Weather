@@ -63,7 +63,7 @@ class WeatherService
 
       var Date = Item["dt_txt"];
 
-      var Split = Date.toString().replaceAll(RegExp(r'-'), ' ').replaceAll(RegExp(r':'), ' ').split(' ');
+      var Split = Date.toString().replaceAll(RegExp(r'-'), ' ').replaceAll(RegExp(r':'), ' ').split(' '); //parse the date
       var Day = double.parse(Split[2]);
 
 
