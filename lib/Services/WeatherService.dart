@@ -34,14 +34,29 @@ class WeatherService
     const APIKey = "85c1d4dbd65436f74bf556ce378bd188";
 
     String Resp = await Service.Request(
-      "https://api.openweathermap.org/data/2.5/weather?lat=$Latitude&lon=$Longitude&appid=$APIKey&units=imperial", Method: "Get");
+      "https://api.openweathermap.org/data/2.5/forecast?lat=$Latitude&lon=$Longitude&appid=$APIKey&units=imperial", Method: "Get");
     return Resp;
 
   }
 
-  Future<WeatherData> GetWeatherData() async
+  Future<WeatherData> GetWeatherData(int Index) async
   {
     String Res = await GetWeather();
-    return WeatherData.FromJson(jsonDecode(Res));
+    return WeatherData.FromJson(Index,jsonDecode(Res));
+  }
+
+  Future<List<WeatherData>> GetWeatherForcest() async
+  {
+    String Res = await GetWeather();
+
+    List<WeatherData> Data = [];
+    Data.add(WeatherData.FromJson(0, jsonDecode(Res)));
+    Data.add(WeatherData.FromJson(1, jsonDecode(Res)));
+    Data.add(WeatherData.FromJson(2, jsonDecode(Res)));
+    Data.add(WeatherData.FromJson(3, jsonDecode(Res)));
+    Data.add(WeatherData.FromJson(4, jsonDecode(Res)));
+
+
+    return Data;
   }
 }
