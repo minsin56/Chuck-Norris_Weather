@@ -20,14 +20,29 @@ class Layout extends StatelessWidget
   {
 
     var Temp = Data?.Tempurature;
+    var MinTemp = Data?.MinTempurature;
+    var MaxTemp = Data?.MaxTempurature;
+
     var TimeText = Data?.DateText;
     var RainChance = Data?.RainChance;
 
     var Wind = Data?.Wind;
-    var WindDirection = Data?.WindDirection;
     var Humidity = Data?.Humidity;
     var WeatherMainType = Data?.WeatherMainType;
-    var DateText = Data?.DateText;
+
+    var StartDateText= Data?.DateText;
+    var CurrentDateText = "$StartDateText";
+    var Location = Data?.Location;
+    
+    if(WeatherMainType == "Clouds")
+    {
+      WeatherMainType = "Cloudy";
+    }
+
+    List<String> DateSplit = [];
+    DateSplit.addAll(CurrentDateText.split("-"));
+
+    var DateText = DateSplit[1] + "/" + DateSplit[2] + "/" + DateSplit[0];
 
     return      Container(
         padding: const EdgeInsets.all(20),
@@ -35,11 +50,11 @@ class Layout extends StatelessWidget
         child:
           Row(children:[ Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,31 +80,54 @@ class Layout extends StatelessWidget
                     ],
                   ),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("$Temp \u00B0\u0046", style: GoogleFonts.lato(
-                              fontSize: 80,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white
-                          ),)
+                           Column(children: [
+                                  Text("$Temp \u00B0\u0046", style: GoogleFonts.lato(
+                                    fontSize: 80,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white
+                                  ),),
+                                  Text("Minimum $MinTemp \u00B0\u0046", style: GoogleFonts.lato(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white
+                                  ),),
+                                  Text("Maximum $MaxTemp \u00B0\u0046", style: GoogleFonts.lato(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300,
+                                    color: Colors.white
+                                  ),),                                  
+                           ],),
+                          
                         ],
                       ),
-                      Row(
+                      Column(
                         children: [
-                          Row(
-                            children: [
-//                              SvgPicture.asset(IconName, width: 34,height: 34),
-                              SizedBox(width: 10,),
-                              Text(TimeText.toString(), style: GoogleFonts.lato(
+                           SizedBox(height: 40,),
+                                      Text(DateText, style: GoogleFonts.lato(
                                   fontSize: 25,
                                   fontWeight:FontWeight.w500,
-                                  color: Colors.white
-                              ))
-                            ],
-                          )
+                                  color: Colors.white,
+                                  textBaseline: TextBaseline.alphabetic
+                              )),
+                                 Text("$WeatherMainType", style: GoogleFonts.lato(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),),
+                           Text("$Location", style: GoogleFonts.lato(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white
+                                    ),),
+                            
+                              SizedBox(height: 20,),
+                          
                         ],
                       ),
 
@@ -140,39 +178,7 @@ class Layout extends StatelessWidget
                                     )
                                   ],
                                 ),
-                                                    Column(
-                                  children: [
-                                    Text("Wind Direction", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("$WindDirection", style: GoogleFonts.lato(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("Deg", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Stack(
-                                      children: [
-                                        Container(
-                                            height: 5,
-                                            width: 50,
-                                            color: Colors.white38
-                                        ),
-                                        Container(
-                                            height: 5,
-                                            width: 5,
-                                            color: Colors.redAccent
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                
                                 Column(
                                   children: [
                                     Text("Rain", style: GoogleFonts.lato(
@@ -240,39 +246,7 @@ class Layout extends StatelessWidget
                                   ],
                                 ),
              
-                                 Column(
-                                  children: [
-                                    Text("Weather", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("$WeatherMainType", style: GoogleFonts.lato(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("type", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Stack(
-                                      children: [
-                                        Container(
-                                            height: 5,
-                                            width: 50,
-                                            color: Colors.white38
-                                        ),
-                                        Container(
-                                            height: 5,
-                                            width: 5,
-                                            color: Colors.redAccent
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
+                              
                               ],
                             ),
                           )
