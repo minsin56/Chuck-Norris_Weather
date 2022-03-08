@@ -24,5 +24,5 @@ class WeatherData
       RainChance: Json["forecast"]["forecastday"][Index]["day"]["daily_chance_of_rain"].toDouble(),
       WeatherMainType: Json["forecast"]["forecastday"][Index]["day"]["condition"]["text"].toString(),
       Location: Json["location"]["name"].toString()
-      );
+    );
 }

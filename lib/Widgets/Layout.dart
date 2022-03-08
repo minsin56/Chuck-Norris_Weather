@@ -39,6 +39,18 @@ class Layout extends StatelessWidget
       WeatherMainType = "Cloudy";
     }
 
+    double RainBarWidth = 0;
+    Color RainBarColor = Colors.greenAccent;
+    if(RainChance != null)
+    {
+      RainBarWidth = RainChance / 2;
+
+      if(RainChance > 50)
+      {
+        RainBarColor = Colors.redAccent;
+      }
+    }
+
     List<String> DateSplit = [];
     DateSplit.addAll(CurrentDateText.split("-"));
 
@@ -120,22 +132,18 @@ class Layout extends StatelessWidget
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white
                                     ),),
-                           Text("$Location", style: GoogleFonts.lato(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
+                        
                             
-                              SizedBox(height: 20,),
+                              SizedBox(height: 30,),
                           
                         ],
                       ),
 
                       Container(
-                        margin:  EdgeInsets.symmetric(vertical: 40),
+                        margin:  EdgeInsets.symmetric(vertical: 80),
                         decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.white30
+                                color: Colors.transparent
                             )
                         ),
                       ),
@@ -205,8 +213,8 @@ class Layout extends StatelessWidget
                                         ),
                                         Container(
                                             height: 5,
-                                            width: 5,
-                                            color: Colors.redAccent
+                                            width: RainBarWidth,
+                                            color: RainBarColor
                                         )
                                       ],
                                     )

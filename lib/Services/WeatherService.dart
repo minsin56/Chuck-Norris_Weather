@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dafaq_is_the_weather/APIKeys.dart';
 import 'package:dafaq_is_the_weather/Models/WeatherData.dart';
 import 'package:dafaq_is_the_weather/Services/BaseService.dart';
 import 'package:geolocator/geolocator.dart';
@@ -28,10 +29,10 @@ class WeatherService
     double Longitude = LocalPosition.longitude;
     double Latitude = LocalPosition.latitude;
 
-    const APIKey = "4265aa7be49e4eefb53182145220703";
+
 
     String Resp = await Service.Request(
-      "http://api.weatherapi.com/v1/forecast.json?key=$APIKey &q=$Latitude,$Longitude &days=7", Method: "Get");
+      "http://api.weatherapi.com/v1/forecast.json?key=$WeatherAPIKey &q=$Latitude,$Longitude &days=7", Method: "Get");
     return Resp;
 
   }
@@ -64,7 +65,7 @@ class WeatherService
 
       var Split = Date.toString().split('-'); //parse the date
       var Day = double.parse(Split[2]);
-        Data.add(WeatherData.FromJson(i,jsonDecode(Res)));
+      Data.add(WeatherData.FromJson(i,jsonDecode(Res)));
 
 
       if(Day > PrevDay)

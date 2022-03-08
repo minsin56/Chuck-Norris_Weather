@@ -26,7 +26,7 @@ class WeatherApp extends StatelessWidget
         
       ),
       body: Stack(children: [
-        Image.asset('assets/BG_Day.png',
+        Image.asset('assets/BG_Day-01.png',
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity),
