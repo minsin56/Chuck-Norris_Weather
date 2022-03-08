@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dafaq_is_the_weather/APIKeys.dart';
 import 'package:dafaq_is_the_weather/Models/WeatherData.dart';
 import 'package:dafaq_is_the_weather/Services/BaseService.dart';
 import 'package:geolocator/geolocator.dart';
@@ -24,17 +25,14 @@ class WeatherService
   
     await RequestPermissions();
 
-    Position LocalPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+    Position LocalPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
     double Longitude = LocalPosition.longitude;
     double Latitude = LocalPosition.latitude;
 
-    print("Long=$Longitude Lat=$Latitude");
 
-
-    const APIKey = "85c1d4dbd65436f74bf556ce378bd188";
 
     String Resp = await Service.Request(
-      "https://api.openweathermap.org/data/2.5/forecast?lat=$Latitude&lon=$Longitude&appid=$APIKey&units=imperial", Method: "Get");
+      "http://api.weatherapi.com/v1/forecast.json?key=$WeatherAPIKey &q=$Latitude,$Longitude &days=7", Method: "Get");
     return Resp;
 
   }
@@ -51,7 +49,9 @@ class WeatherService
 
     List<WeatherData> Data = [];
   
-    double Count = jsonDecode(Res)["cnt"].toDouble();
+    double Count = jsonDecode(Res)["forecast"]["forecastday"].length.toDouble();
+
+    double TempMin = 0,TempMax = 0;
 
     double PrevDay = -1;
 
@@ -59,21 +59,20 @@ class WeatherService
     {
       var Json = jsonDecode(Res);
 
-      var Item = Json["list"][i];
+      var Item = Json["forecast"]["forecastday"][i];
 
-      var Date = Item["dt_txt"];
+      var Date = Item["date"];
 
-      var Split = Date.toString().replaceAll(RegExp(r'-'), ' ').replaceAll(RegExp(r':'), ' ').split(' '); //parse the date
+      var Split = Date.toString().split('-'); //parse the date
       var Day = double.parse(Split[2]);
+      Data.add(WeatherData.FromJson(i,jsonDecode(Res)));
 
 
       if(Day > PrevDay)
       {
-        Data.add(WeatherData.FromJson(i,jsonDecode(Res)));
 
         PrevDay = Day;
       }
-
     } 
 
 

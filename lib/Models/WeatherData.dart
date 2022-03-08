@@ -1,20 +1,28 @@
 class WeatherData
 {
-  WeatherData({required this.Tempurature, required this.Humidity, required this.Wind, required this.WindDirection, required this.DateText, required this.RainChance, 
-  required this.WeatherMainType});
+  WeatherData({required this.Tempurature, required this.MinTempurature,
+   required this.MaxTempurature, required this.Humidity, required this.Wind, required this.DateText, required this.RainChance, 
+  required this.WeatherMainType, required this.Location});
   double Tempurature;
+  double MinTempurature;
+  double MaxTempurature;
   double Humidity;
   double RainChance;
   double Wind;
-  double WindDirection;
   String DateText;
   String WeatherMainType;
+  String Location;
 
-  factory WeatherData.FromJson(int Index,Map<String,dynamic> Json) => WeatherData(Tempurature: Json["list"][Index]["main"]["temp"].toDouble(),
-      Humidity: Json["list"][Index]["main"]["humidity"].toDouble(),
-      Wind: Json["list"][Index]["wind"]["speed"].toDouble(), WindDirection: Json["list"][Index]["wind"]["deg"].toDouble(),
-      DateText: Json["list"][Index]["dt_txt"].toString(), 
-      RainChance: Json["list"][Index]["weather"][0]["main"].toString() == "Rain"? Json["list"][Index]["rain"]["3h"].toDouble():0.0,
-      WeatherMainType: Json["list"][Index]["weather"][0]["main"].toString()
-      );
+  factory WeatherData.FromJson(int Index,Map<String,dynamic> Json) => WeatherData(
+    
+      Tempurature: Index == 0? Json["current"]["temp_f"].toDouble(): Json["forecast"]["forecastday"][Index]["day"]["avgtemp_f"].toDouble(),
+      MinTempurature: Json["forecast"]["forecastday"][Index]["day"]["mintemp_f"].toDouble(),
+      MaxTempurature: Json["forecast"]["forecastday"][Index]["day"]["maxtemp_f"].toDouble(),
+      Humidity: Json["forecast"]["forecastday"][Index]["day"]["avghumidity"].toDouble(),
+      Wind: Json["forecast"]["forecastday"][Index]["day"]["maxwind_mph"].toDouble(), 
+      DateText: Json["forecast"]["forecastday"][Index]["date"].toString(), 
+      RainChance: Json["forecast"]["forecastday"][Index]["day"]["daily_chance_of_rain"].toDouble(),
+      WeatherMainType: Json["forecast"]["forecastday"][Index]["day"]["condition"]["text"].toString(),
+      Location: Json["location"]["name"].toString()
+    );
 }

@@ -44,3 +44,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+s8pl0nnv1yl81.webp
+./lib/APIKeys.dart
+upload-keystore.jks
+
