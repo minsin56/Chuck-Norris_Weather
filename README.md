@@ -9,6 +9,7 @@ YOU MAY NOT use this project for commercial purposes, all the commercial rights 
 # Prerequisites
 
 install flutter by using this guide https://docs.flutter.dev/get-started/install
+
 make an account and get an API key from https://www.weatherapi.com
 
 # Setup
