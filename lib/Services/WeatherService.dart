@@ -17,6 +17,11 @@ class WeatherService
     if(!Status.isGranted)
     {
       var NewStatus = await Permission.location.request();
+
+      if(NewStatus.isPermanentlyDenied)
+      {
+        await openAppSettings();
+      }
     }
   }
 
