@@ -2,7 +2,7 @@
 
 THE FREAKING WEATHER WITH CHUCK NORRIS FACTS
 
-#Prerequestites
+# Prerequisites
 make an account and get an API key from https://www.weatherapi.com
 
 # BUILDING
