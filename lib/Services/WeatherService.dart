@@ -31,8 +31,7 @@ class WeatherService
 
 
 
-    String Resp = await Service.Request
-      (
+    String Resp = await Service.Request(
       "http://api.weatherapi.com/v1/forecast.json?key=$WeatherAPIKey &q=$Latitude,$Longitude &days=7", Method: "Get");
     return Resp;
 
