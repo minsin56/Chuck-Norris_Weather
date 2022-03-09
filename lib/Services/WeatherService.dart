@@ -37,7 +37,7 @@ class WeatherService
 
 
     String Resp = await Service.Request(
-      "http://api.weatherapi.com/v1/forecast.json?key=$WeatherAPIKey &q=$Latitude,$Longitude &days=7", Method: "Get");
+      "http://api.weatherapi.com/v1/forecast.json?key=$WeatherAPIKey &q=$Latitude,$Longitude &days=5", Method: "Get");
     return Resp;
 
   }
@@ -56,8 +56,6 @@ class WeatherService
   
     double Count = jsonDecode(Res)["forecast"]["forecastday"].length.toDouble();
 
-    double TempMin = 0,TempMax = 0;
-
     double PrevDay = -1;
 
     for(int i = 0; i < (Count).toInt(); i ++)
@@ -70,12 +68,11 @@ class WeatherService
 
       var Split = Date.toString().split('-'); //parse the date
       var Day = double.parse(Split[2]);
-      Data.add(WeatherData.FromJson(i,jsonDecode(Res)));
 
 
       if(Day > PrevDay)
       {
-
+        Data.add(WeatherData.FromJson(i,jsonDecode(Res)));
         PrevDay = Day;
       }
     } 

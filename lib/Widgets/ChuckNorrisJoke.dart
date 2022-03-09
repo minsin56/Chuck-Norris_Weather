@@ -1,7 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dafaq_is_the_weather/Models/ChuckNorrisData.dart';
 import "package:dafaq_is_the_weather/Services/ChuckNorrisService.dart";
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,21 +19,26 @@ class ChuckNorrisJoke extends StatelessWidget
       if(Snapshot.hasData)
       {
         var Joke = Snapshot.data?.Data;
-        return Text(
-                     Joke as String,
-                     style: GoogleFonts.lato(
-                         fontSize: 14,
-                         fontWeight: FontWeight.bold,
-                         color: Colors.white
-                        )
-                    );
+        return
+            FadeIn(child:
+                Container(
+                    child:
+                    Text(
+                      Joke.toString(),
+                      style: GoogleFonts.lato(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+              duration: const Duration(milliseconds: 500), curve: Curves.easeIn
+        );
       }
-      return Text("GETTING YOUR CHUCK NORRIS FACT OF THE DAY, PLEASE LOOK AT THE WEATHER WHILE YOU ARE WAITING",
-      style: GoogleFonts.lato(
-                         fontSize: 14,
-                         fontWeight: FontWeight.bold,
-                         color: Colors.white
-                        ));
+      return FadeIn(child: Text(
+          "GETTING YOUR CHUCK NORRIS FACT OF THE DAY, PLEASE LOOK AT THE WEATHER WHILE YOU ARE WAITING",
+          style: GoogleFonts.lato(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+          )),
+          duration: const Duration(milliseconds: 100), curve: Curves.easeIn);
     } );
     
   }
