@@ -2,12 +2,7 @@ import 'package:dafaq_is_the_weather/Models/WeatherData.dart';
 import 'package:dafaq_is_the_weather/Widgets/ChuckNorrisJoke.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import "package:dafaq_is_the_weather/Services/WeatherService.dart";
 
 class Layout extends StatelessWidget
 {
@@ -33,6 +28,8 @@ class Layout extends StatelessWidget
     var StartDateText= Data?.DateText;
     var CurrentDateText = "$StartDateText";
     var Location = Data?.Location;
+
+    var FIcon = Data?.WeatherIcon;
     
     if(WeatherMainType == "Clouds")
     {
@@ -56,213 +53,235 @@ class Layout extends StatelessWidget
 
     var DateText = DateSplit[1] + "/" + DateSplit[2] + "/" + DateSplit[0];
 
-    return      Container(
+    return Container(
         padding: const EdgeInsets.all(20),
 
         child:
-          Row(children:[ Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(children:[
+            Expanded(
+              child: Stack(
                 children: [
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(height: 80),
+                      SizedBox(height: 30,),
 
-                          Text(
-                              "THE CHUCK NORRIS FACTS OF THE DAY",
-                              style: GoogleFonts.lato(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white
-                              )
-                          ),
-                          SizedBox(height: 20,),
-                          ChuckNorrisJoke(),
-                          SizedBox(height: 20,),
-      
-                          SizedBox(height: 5,),
-                        ],
+                      Text(
+                          "THE CHUCK NORRIS FACTS OF THE DAY",
+                          style: GoogleFonts.lato(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                          )
                       ),
+
+                      SizedBox(height: 10,),
+
+                      ChuckNorrisJoke(),
                     ],
                   ),
                   Column(
-
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+
+                      SizedBox(height: 0),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+
+                                SizedBox(height: 20,),
+                                SizedBox(height: 20,),
+
+                                SizedBox(height: 5,),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                           Column(children: [
-                                  Text("$Temp \u00B0\u0046", style: GoogleFonts.lato(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(children: [
+                                Text("$Temp \u00B0\u0046", style: GoogleFonts.lato(
                                     fontSize: 80,
                                     fontWeight: FontWeight.w300,
                                     color: Colors.white
-                                  ),),
-                                  Text("Minimum $MinTemp \u00B0\u0046", style: GoogleFonts.lato(
+                                ),),
+                                Text("Minimum $MinTemp \u00B0\u0046", style: GoogleFonts.lato(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w300,
                                     color: Colors.white
-                                  ),),
-                                  Text("Maximum $MaxTemp \u00B0\u0046", style: GoogleFonts.lato(
+                                ),),
+                                Text("Maximum $MaxTemp \u00B0\u0046", style: GoogleFonts.lato(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w300,
                                     color: Colors.white
-                                  ),),                                  
-                           ],),
-                          
-                        ],
-                      ),
-                      Column(
-                        children: [
-                           SizedBox(height: 40,),
-                                      Text(DateText, style: GoogleFonts.lato(
+                                ),),
+                              ],),
+
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(height: 20,),
+                              Text(DateText, style: GoogleFonts.lato(
                                   fontSize: 25,
                                   fontWeight:FontWeight.w500,
                                   color: Colors.white,
                                   textBaseline: TextBaseline.alphabetic
                               )),
-                                 Text("$WeatherMainType", style: GoogleFonts.lato(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                        
-                            
-                              SizedBox(height: 30,),
-                          
-                        ],
-                      ),
+                              Column(
+                                children: [
+                                  Image.network("https:$FIcon"),
+                                  Text("$WeatherMainType", style: GoogleFonts.lato(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white
+                                  ),),
+                                ],
+                              ),
 
-                      Container(
-                        margin:  EdgeInsets.symmetric(vertical: 80),
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.transparent
-                            )
-                        ),
-                      ),
-                      Container(
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                            child:Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text("Wind", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text(Wind.toString(), style: GoogleFonts.lato(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("mph", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Stack(
-                                      children: [
-                                        Container(
-                                            height: 5,
-                                            width: 50,
-                                            color: Colors.white38
-                                        ),
-                                        Container(
-                                            height: 5,
-                                            width: 5,
-                                            color: Colors.greenAccent
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                
-                                Column(
-                                  children: [
-                                    Text("Rain", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("$RainChance", style: GoogleFonts.lato(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("%", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Stack(
-                                      children: [
-                                        Container(
-                                            height: 5,
-                                            width: 50,
-                                            color: Colors.white38
-                                        ),
-                                        Container(
-                                            height: 5,
-                                            width: RainBarWidth,
-                                            color: RainBarColor
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Text("Humidity", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("$Humidity", style: GoogleFonts.lato(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Text("%", style: GoogleFonts.lato(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),),
-                                    Stack(
-                                      children: [
-                                        Container(
-                                            height: 5,
-                                            width: 50,
-                                            color: Colors.white38
-                                        ),
-                                        Container(
-                                            height: 5,
-                                            width: 5,
-                                            color: Colors.redAccent
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-             
-                              
-                              ],
+
+
+                            ],
+                          ),
+
+                          Container(
+                            margin:  EdgeInsets.symmetric(vertical: 70),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.transparent
+                                )
                             ),
-                          )
-                      ),
+                          ),
+                          Container(
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                child:Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text("Wind", style: GoogleFonts.lato(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ),),
+                                        Text(Wind.toString(), style: GoogleFonts.lato(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ),),
+                                        Text("mph", style: GoogleFonts.lato(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ),),
+                                        Stack(
+                                          children: [
+                                            Container(
+                                                height: 5,
+                                                width: 50,
+                                                color: Colors.white38
+                                            ),
+                                            Container(
+                                                height: 5,
+                                                width: 5,
+                                                color: Colors.greenAccent
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+
+                                    Column(
+                                      children: [
+                                        Text("Rain", style: GoogleFonts.lato(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ),),
+                                        Text("$RainChance", style: GoogleFonts.lato(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ),),
+                                        Text("%", style: GoogleFonts.lato(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ),),
+                                        Stack(
+                                          children: [
+                                            Container(
+                                                height: 5,
+                                                width: 50,
+                                                color: Colors.white38
+                                            ),
+                                            Container(
+                                                height: 5,
+                                                width: RainBarWidth,
+                                                color: RainBarColor
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text("Humidity", style: GoogleFonts.lato(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ),),
+                                        Text("$Humidity", style: GoogleFonts.lato(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ),),
+                                        Text("%", style: GoogleFonts.lato(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white
+                                        ),),
+                                        Stack(
+                                          children: [
+                                            Container(
+                                                height: 5,
+                                                width: 50,
+                                                color: Colors.white38
+                                            ),
+                                            Container(
+                                                height: 5,
+                                                width: 5,
+                                                color: Colors.redAccent
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+
+
+                                  ],
+                                ),
+                              )
+                          ),
+                        ],
+                      )
                     ],
-                  )
+                  ),
                 ],
-              ),
+              )
             )])
     );
   }
