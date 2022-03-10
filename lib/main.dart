@@ -8,12 +8,14 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget
+{
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
 
        SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
@@ -26,7 +28,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routes: {
+      routes:
+      {
         '/': (CTX) => HomePage(),
         'Settings': (CTX) => SettingsPage()
       },

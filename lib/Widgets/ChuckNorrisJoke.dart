@@ -25,6 +25,7 @@ class ChuckNorrisJoke extends StatelessWidget
                     child:
                     Text(
                       Joke.toString(),
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.lato(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
                     ),
                   ),
@@ -33,6 +34,7 @@ class ChuckNorrisJoke extends StatelessWidget
       }
       return FadeIn(child: Text(
           "GETTING YOUR CHUCK NORRIS FACT OF THE DAY, PLEASE LOOK AT THE WEATHER WHILE YOU ARE WAITING",
+          textAlign: TextAlign.center,
           style: GoogleFonts.lato(
               fontSize: 14,
               fontWeight: FontWeight.bold,

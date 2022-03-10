@@ -1,5 +1,6 @@
 import 'package:dafaq_is_the_weather/Models/WeatherData.dart';
 import 'package:dafaq_is_the_weather/Widgets/ChuckNorrisJoke.dart';
+import 'package:dafaq_is_the_weather/Widgets/WeatherStat.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +19,6 @@ class Layout extends StatelessWidget
     var MinTemp = Data?.MinTempurature;
     var MaxTemp = Data?.MaxTempurature;
 
-    var TimeText = Data?.DateText;
     var RainChance = Data?.RainChance;
 
     var Wind = Data?.Wind;
@@ -27,25 +27,12 @@ class Layout extends StatelessWidget
 
     var StartDateText= Data?.DateText;
     var CurrentDateText = "$StartDateText";
-    var Location = Data?.Location;
 
     var FIcon = Data?.WeatherIcon;
     
     if(WeatherMainType == "Clouds")
     {
       WeatherMainType = "Cloudy";
-    }
-
-    double RainBarWidth = 0;
-    Color RainBarColor = Colors.greenAccent;
-    if(RainChance != null)
-    {
-      RainBarWidth = RainChance / 2;
-
-      if(RainChance > 50)
-      {
-        RainBarColor = Colors.redAccent;
-      }
     }
 
     List<String> DateSplit = [];
@@ -63,7 +50,7 @@ class Layout extends StatelessWidget
                 children: [
                   Column(
                     children: [
-                      SizedBox(height: 30,),
+                      SizedBox(height: 20,),
 
                       Text(
                           "THE CHUCK NORRIS FACTS OF THE DAY",
@@ -114,17 +101,17 @@ class Layout extends StatelessWidget
                               Column(children: [
                                 Text("$Temp \u00B0\u0046", style: GoogleFonts.lato(
                                     fontSize: 80,
-                                    fontWeight: FontWeight.w300,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white
                                 ),),
                                 Text("Minimum $MinTemp \u00B0\u0046", style: GoogleFonts.lato(
                                     fontSize: 20,
-                                    fontWeight: FontWeight.w300,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white
                                 ),),
                                 Text("Maximum $MaxTemp \u00B0\u0046", style: GoogleFonts.lato(
                                     fontSize: 20,
-                                    fontWeight: FontWeight.w300,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white
                                 ),),
                               ],),
@@ -170,107 +157,24 @@ class Layout extends StatelessWidget
                                 child:Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
-                                      children: [
-                                        Text("Wind", style: GoogleFonts.lato(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white
-                                        ),),
-                                        Text(Wind.toString(), style: GoogleFonts.lato(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white
-                                        ),),
-                                        Text("mph", style: GoogleFonts.lato(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white
-                                        ),),
-                                        Stack(
-                                          children: [
-                                            Container(
-                                                height: 5,
-                                                width: 50,
-                                                color: Colors.white38
-                                            ),
-                                            Container(
-                                                height: 5,
-                                                width: 5,
-                                                color: Colors.greenAccent
-                                            )
-                                          ],
-                                        )
-                                      ],
+                                    WeatherStat
+                                    (
+                                        StatName: "Wind",
+                                        StatValue: "$Wind",
+                                        StatValueTypeText: "MPH"
                                     ),
-
-                                    Column(
-                                      children: [
-                                        Text("Rain", style: GoogleFonts.lato(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white
-                                        ),),
-                                        Text("$RainChance", style: GoogleFonts.lato(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white
-                                        ),),
-                                        Text("%", style: GoogleFonts.lato(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white
-                                        ),),
-                                        Stack(
-                                          children: [
-                                            Container(
-                                                height: 5,
-                                                width: 50,
-                                                color: Colors.white38
-                                            ),
-                                            Container(
-                                                height: 5,
-                                                width: RainBarWidth,
-                                                color: RainBarColor
-                                            )
-                                          ],
-                                        )
-                                      ],
+                                    WeatherStat
+                                    (
+                                        StatName: "Rain",
+                                        StatValue: "$RainChance",
+                                        StatValueTypeText: "%"
                                     ),
-                                    Column(
-                                      children: [
-                                        Text("Humidity", style: GoogleFonts.lato(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white
-                                        ),),
-                                        Text("$Humidity", style: GoogleFonts.lato(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white
-                                        ),),
-                                        Text("%", style: GoogleFonts.lato(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white
-                                        ),),
-                                        Stack(
-                                          children: [
-                                            Container(
-                                                height: 5,
-                                                width: 50,
-                                                color: Colors.white38
-                                            ),
-                                            Container(
-                                                height: 5,
-                                                width: 5,
-                                                color: Colors.redAccent
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-
+                                    WeatherStat
+                                    (
+                                        StatName: "Humidity",
+                                        StatValue: "$Humidity",
+                                        StatValueTypeText: "%"
+                                    )
 
                                   ],
                                 ),
@@ -282,7 +186,8 @@ class Layout extends StatelessWidget
                   ),
                 ],
               )
-            )])
+            )
+          ])
     );
   }
 }
