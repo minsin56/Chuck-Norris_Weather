@@ -16,8 +16,10 @@ class WeatherData
   double Wind;
   String DateText;
   String WeatherMainType;
-  String Location;
+  String Location; //unused for now
   String WeatherIcon;
+
+
   factory WeatherData.FromJson(int Index,Map<String,dynamic> Json) => WeatherData
     (
       Tempurature: Index == 0?

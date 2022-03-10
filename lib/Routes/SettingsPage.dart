@@ -1,4 +1,4 @@
-import 'package:dafaq_is_the_weather/Screens/WeatherAppMainPage.dart';
+import 'package:dafaq_is_the_weather/Widgets/WeatherApp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -40,7 +40,8 @@ class SettingsPageState extends State<SettingsPage>
                   sections: [
                     SettingsSection(
                       title: Text('Common'),
-                      tiles: <SettingsTile>[
+                      tiles: <SettingsTile>
+                      [
                         SettingsTile.switchTile(
                           onToggle: (value)
                           {
