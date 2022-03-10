@@ -20,6 +20,7 @@ class WeatherStat extends StatelessWidget
     return
         Column(
           children: [
+
             Text("$StatName", style: GoogleFonts.lato(
               fontSize: 14,
               fontWeight: FontWeight.bold,
